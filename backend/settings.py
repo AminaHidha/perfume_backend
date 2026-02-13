@@ -158,3 +158,17 @@ SIMPLE_JWT = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+FRONTEND_URL = "http://localhost:5173"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "hidhahidha03@gmail.com"
+EMAIL_HOST_PASSWORD = 'isoc ikho kojn amrq'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+GOOGLE_CLIENT_ID = "84644872166-4c0llvq9a0m9vo450chiminqj71nkecn.apps.googleusercontent.com"
+
+
+
