@@ -9,6 +9,7 @@ from google.auth.transport import requests as google_requests
 from django.conf import settings
 
 
+
 from .serializers import (
     RegisterSerializer,
     LoginSerializer,
@@ -139,13 +140,19 @@ class GoogleLoginView(APIView):
         if not credential:
             return Response({"error": "credential is required"}, status=400)
 
+
         try:
             payload = id_token.verify_oauth2_token(
                 credential,
                 google_requests.Request(),
-                settings.GOOGLE_CLIENT_ID,  # ✅ important
-            )
-        except Exception:
+                clock_skew_in_seconds=10   
+)
+            # ✅ MANUAL audience check (important fix)
+            if payload["aud"] != settings.GOOGLE_CLIENT_ID:
+                return Response({"error": "Invalid audience"}, status=400)
+
+        except Exception as e:
+            print("GOOGLE ERROR:", str(e))
             return Response({"error": "Invalid Google token"}, status=400)
 
         email = payload.get("email")
